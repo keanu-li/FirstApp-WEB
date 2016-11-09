@@ -1,0 +1,13 @@
+
+api/.settings
+api/target
+bbs/.settings
+bbs/target
+module/.settings
+module/target
+repository/.settings
+repository/target
+service/.settings
+service/target
+.settings/org.eclipse.core.resources.prefs
+.settings/org.eclipse.m2e.core.prefs
