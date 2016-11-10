@@ -1,4 +1,4 @@
-package me.firstapp.module;
+package me.firstapp.common;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

@@ -8,9 +8,9 @@
 		<artifactId>aggregator</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<artifactId>bbs</artifactId>
-	<packaging>war</packaging>
-	<name>bbs Maven Webapp</name>
+
+	<artifactId>common</artifactId>
+	<name>common</name>
 	<url>http://maven.apache.org</url>
 
 	<dependencies>
@@ -20,7 +20,4 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-	<build>
-		<finalName>bbs</finalName>
-	</build>
 </project>
