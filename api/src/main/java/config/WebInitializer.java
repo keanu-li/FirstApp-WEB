@@ -1,6 +1,5 @@
 package config;
 
-
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 import config.RootConfig;
@@ -20,7 +19,7 @@ public class WebInitializer extends AbstractAnnotationConfigDispatcherServletIni
 
 	@Override
 	protected String[] getServletMappings() {
-		return new String[] { "/" };
+		return new String[] { "*.do", "*.html", "*.css", "*.js", "*.gif", "*.png" };
 	}
 
 }

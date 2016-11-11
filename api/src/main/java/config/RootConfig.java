@@ -70,4 +70,5 @@ public class RootConfig {
 		hibernateTemplate.setSessionFactory(sessionFactory.getObject());
 		return hibernateTemplate;
 	}
+
 }
