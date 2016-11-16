@@ -8,6 +8,13 @@ import javax.persistence.Table;
 
 import me.firstapp.module.base.BaseEntity;
 
+/**
+ * 用户模型
+ * 
+ * @Created by keanu.
+ * @Copyright (c) 2016, All Rights Reserved.
+ * @website http://firstapp.me
+ */
 @Entity
 @Table(name = "MEMBER_MEMBER")
 public class Member extends BaseEntity {
