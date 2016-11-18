@@ -11,6 +11,7 @@ import javax.persistence.Table;
 
 import me.firstapp.module.base.BaseEntity;
 import me.firstapp.module.member.Member;
+import me.firstapp.module.section.Section;
 
 /**
  * 话题模型

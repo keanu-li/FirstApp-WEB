@@ -16,7 +16,7 @@ import me.firstapp.service.member.MemberService;
 
 @Controller
 @RequestMapping(value = "/member")
-@Api(value = "/member", description = "Member信息相关接口")
+@Api(value = "/member", description = "Member相关接口")
 public class MemberApi {
 
 	@Autowired

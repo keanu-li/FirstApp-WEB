@@ -1,4 +1,4 @@
-package me.firstapp.module.topic;
+package me.firstapp.module.section;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

@@ -8,6 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 /**
  * 实体模型基类
  * 
@@ -15,6 +17,7 @@ import javax.persistence.MappedSuperclass;
  * @Copyright (c) 2016, All Rights Reserved.
  * @website http://firstapp.me
  */
+@JsonIgnoreProperties(value = { "createdAt", "updatedAt", "inserter", "updater" })
 @MappedSuperclass
 public abstract class BaseEntity implements Serializable, Entity<Long> {
 	private static final long serialVersionUID = 3391281495908400659L;

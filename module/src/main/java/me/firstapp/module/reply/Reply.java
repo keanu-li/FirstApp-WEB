@@ -1,4 +1,4 @@
-package me.firstapp.module.topic;
+package me.firstapp.module.reply;
 
 import java.util.Date;
 
@@ -11,6 +11,7 @@ import javax.persistence.Table;
 
 import me.firstapp.module.base.BaseEntity;
 import me.firstapp.module.member.Member;
+import me.firstapp.module.topic.Topic;
 
 /**
  * 话题回复模型
