@@ -4,12 +4,14 @@
 <html>
 <head>
 <%@ include file="../common/common.jsp"%>
-<link rel="stylesheet" href="../static/libs/editor/editor.css" />
+<link rel="stylesheet" href="${ctx}/static/libs/editor/editor.css" />
+<link rel="stylesheet" href="${ctx}/page/topic/css/createTopic.css" />
 <script type="text/javascript"
 	src="../static/libs/webuploader/webuploader.withoutimage.js"></script>
-<script type="text/javascript" src="../static/libs/markdownit.js"></script>
-<script type="text/javascript" src="../static/libs/editor/editor.js"></script>
-<script type="text/javascript" src="../static/libs/editor/ext.js"></script>
+<script type="text/javascript" src="${ctx}/static/libs/markdownit.js"></script>
+<script type="text/javascript" src="${ctx}/static/libs/editor/editor.js"></script>
+<script type="text/javascript" src="${ctx}/static/libs/editor/ext.js"></script>
+<script type="text/javascript" src="${ctx}/page/topic/js/createTopic.js"></script>
 <title>发布话题</title>
 </head>
 <body>
@@ -23,23 +25,26 @@
 							<a href="/">主页</a> / 发布话题
 						</div>
 						<div class="panel-body">
-							<form method="post" action="/topic/save" id="topicForm">
+							<form method="post" action="${ctx}/topic/addTopic.do" id="topicForm">
 								<input type="hidden" name="" value="" />
 								<div class="form-group">
-									<label for="title">标题</label> <input type="text"
+									<label for="title">标题</label>
+									 <input type="text"
 										class="form-control" id="title" name="title">
 								</div>
 								<div class="form-group">
 									<label for="title">内容</label>
 									<textarea name="content" id="content" rows="15"
-										class="form-control"></textarea>
+										class="form-control">
+									</textarea>
 								</div>
 								<div class="form-group">
-									<label for="title">版块</label> <select name="tab" id="tab"
+									<label for="title">版块</label> 
+									<select name="sectionId" id="sectionId"
 										class="form-control">
-										<option value="1">版块1</option>
-										<option value="1">版块2</option>
-										<option value="1">版块3</option>
+										<c:forEach items="${sections}" var="section">
+											<option value="${section.id}">${section.name}</option>
+										</c:forEach>
 									</select>
 								</div>
 								<button type="button" onclick="publishTopic();"

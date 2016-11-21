@@ -17,7 +17,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
  * @Copyright (c) 2016, All Rights Reserved.
  * @website http://firstapp.me
  */
-@JsonIgnoreProperties(value = { "createdAt", "updatedAt", "inserter", "updater" })
+@JsonIgnoreProperties(value = { "insertedAt", "updatedAt", "password", "hibernateLazyInitializer", "handler" }) // 添加hibernateLazyInitializer和handler可解决SerializationFeature.FAIL_ON_EMPTY_BEANS异常
 @MappedSuperclass
 public abstract class BaseEntity implements Serializable, Entity<Long> {
 	private static final long serialVersionUID = 3391281495908400659L;
@@ -28,39 +28,23 @@ public abstract class BaseEntity implements Serializable, Entity<Long> {
 	protected Long id;
 
 	// 创建时间
-	@Column(name = "CREATED_AT", columnDefinition = "DATETIME", nullable = false)
-	protected Date createdAt = new Date();
+	@Column(name = "INSERTED_AT", columnDefinition = "DATETIME", updatable = false, nullable = false)
+	protected Date insertedAt = new Date();
 
 	// 更新时间
 	@Column(name = "UPDATED_AT", columnDefinition = "DATETIME")
 	protected Date updatedAt = new Date();
 
-	// 插入者
-	@Column(name = "INSERTER", nullable = false)
-	protected Long inserter;
-
-	// 更新者
-	@Column(name = "UPDATER")
-	protected Long updater;
-
 	public BaseEntity() {
 
 	}
 
-	public Long getId() {
-		return id;
+	public Date getInsertedAt() {
+		return insertedAt;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public Date getCreatedAt() {
-		return createdAt;
-	}
-
-	public void setCreatedAt(Date createdAt) {
-		this.createdAt = createdAt;
+	public void setInsertedAt(Date insertedAt) {
+		this.insertedAt = insertedAt;
 	}
 
 	public Date getUpdatedAt() {
@@ -71,20 +55,12 @@ public abstract class BaseEntity implements Serializable, Entity<Long> {
 		this.updatedAt = updatedAt;
 	}
 
-	public Long getInserter() {
-		return inserter;
+	public Long getId() {
+		return id;
 	}
 
-	public void setInserter(Long inserter) {
-		this.inserter = inserter;
-	}
-
-	public Long getUpdater() {
-		return updater;
-	}
-
-	public void setUpdater(Long updater) {
-		this.updater = updater;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 }

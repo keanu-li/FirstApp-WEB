@@ -54,7 +54,7 @@ public class Member extends BaseEntity {
 
 	// 状态，0：不正常，1：正常
 	@Column(name = "STATUS", nullable = false)
-	private Integer status;
+	private Integer status = 1;
 
 	public String getName() {
 		return name;

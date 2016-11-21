@@ -4,6 +4,6 @@ import me.firstapp.module.member.Member;
 
 public interface MemberService {
 
-	Member getMemberByName(String name);
+	Member findMemberByName(String name);
 
 }

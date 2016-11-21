@@ -4,9 +4,24 @@ import java.io.Serializable;
 import java.util.Collection;
 
 public class JsonPage<T> implements Serializable {
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 8836163674938428265L;
 
-	public static final int DEF_COUNT = 10;
+	public static final int DEF_COUNT = 20;
+	
+	/**
+	 * 总条数
+	 */
+	private int totalCount = 0;
+
+	/** 分页大小 */
+	private int pageSize = 20;
+
+	/** 分页索引 */
+	protected int pageNo = 1;
+	/**
+	 * 当前页的数据
+	 */
+	private Collection<T> list;
 
 	/**
 	 * 检查页码 checkPageNo
@@ -197,20 +212,6 @@ public class JsonPage<T> implements Serializable {
 		return (pageNo - 1) * pageSize;
 	}
 
-	/**
-	 * 总条数
-	 */
-	private int totalCount = 0;
-
-	/** 分页大小 */
-	private int pageSize = 10;
-
-	/** 分页索引 */
-	protected int pageNo = 1;
-	/**
-	 * 当前页的数据
-	 */
-	private Collection<T> list;
 
 	/**
 	 * @return the list

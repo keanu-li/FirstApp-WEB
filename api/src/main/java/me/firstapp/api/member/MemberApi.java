@@ -26,7 +26,7 @@ public class MemberApi {
 	@ApiOperation(value = "根据会员名称查询会员", notes = "根据会员名称查询会员")
 	public void getMemberByName(HttpServletRequest request, HttpServletResponse response) {
 		System.out.println(111);
-		Member member = memberService.getMemberByName("keanu");
+		Member member = memberService.findMemberByName("keanu");
 		System.out.println(member.getMobile());
 	}
 }

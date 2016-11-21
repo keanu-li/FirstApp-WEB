@@ -1,0 +1,50 @@
+@charset "utf-8";
+
+html, body {
+	background: #FFFFFF;
+}
+
+.errorImg {
+	width: 100%;
+	max-width: 640px;
+	text-align: center;
+	margin: 0 auto;
+	margin-top: 100px;
+}
+
+.errorImg img {
+	width: 200px;
+	height: 170px;
+	margin: 0 auto;
+}
+
+.errorInfo {
+	max-width: 640px;
+	text-align: center;
+	margin: 0 auto;
+	line-height: 50px;
+	color: #4c4c4c;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+.errorButton {
+	margin-top: 20px;
+	text-align: center;
+	width: 100%;
+	max-width: 640px;
+	margin: 0 auto;
+}
+
+.errorButton a {
+	height: 35px;
+	line-height: 35px;
+	width: 120px;
+	color: #fff;
+	text-align: center;
+	background: #768cb1;
+	margin: 0 auto;
+	display: block;
+	font-size:14px;
+}

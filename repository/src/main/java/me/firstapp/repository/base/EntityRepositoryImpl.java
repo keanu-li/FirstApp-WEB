@@ -22,11 +22,8 @@ public abstract class EntityRepositoryImpl<T> implements EntityRepository<T> {
 	public void save(T obj) {
 		if (obj instanceof BaseEntity) {
 			BaseEntity entity = (BaseEntity) obj;
-			if (entity.getCreatedAt() == null) {
-				entity.setCreatedAt(new Date());
-			}
-			if (entity.getInserter() == null) {
-				entity.setInserter(-1L);
+			if (entity.getInsertedAt() == null) {
+				entity.setInsertedAt(new Date());
 			}
 		}
 		baseRepository.save(obj);
@@ -41,10 +38,9 @@ public abstract class EntityRepositoryImpl<T> implements EntityRepository<T> {
 		if (BaseEntity.class.isAssignableFrom(clazz)) {
 			BaseEntity entity = (BaseEntity) obj;
 			entity.setUpdatedAt(new Date());
-			BaseEntity persist = (BaseEntity) baseRepository.getById(ClassUtils.getUserClass(obj.getClass()),
-					entity.getId());
-			entity.setInserter(persist.getInserter());
-			entity.setCreatedAt(persist.getCreatedAt());
+//			BaseEntity persist = (BaseEntity) baseRepository.getById(ClassUtils.getUserClass(obj.getClass()),
+//					entity.getId());
+//			entity.setInsertedAt(persist.getInsertedAt());
 		}
 		baseRepository.update(obj);
 	}

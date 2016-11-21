@@ -13,7 +13,7 @@ public class MemberServiceImpl implements MemberService {
 	@Autowired
 	private MemberRepository memberRepository;
 
-	public Member getMemberByName(String name) {
+	public Member findMemberByName(String name) {
 		return memberRepository.getMemberByName(name);
 	}
 

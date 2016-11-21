@@ -1,0 +1,13 @@
+body {
+    font-family: "Helvetica Neue", "Luxi Sans", "DejaVu Sans", Tahoma, "Hiragino Sans GB", "Microsoft Yahei", sans-serif;
+}
+
+.wrapper {
+    width: 100%;
+    background-color: #e2e2e2;
+}
+
+.avatar {
+    border-radius: 4px;
+    max-width: 48px;
+}

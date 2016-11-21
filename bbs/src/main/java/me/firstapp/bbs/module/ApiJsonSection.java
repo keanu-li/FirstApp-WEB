@@ -1,6 +1,6 @@
 package me.firstapp.bbs.module;
 
-public class ApiJsonSection {
+public class ApiJsonSection extends ApiJsonBase {
 	// 板块名称
 	private String name;
 

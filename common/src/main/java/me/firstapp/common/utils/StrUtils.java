@@ -1,5 +1,10 @@
 package me.firstapp.common.utils;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -125,75 +130,23 @@ public class StrUtils {
 		return !isNULL(text);
 	}
 
-	/**
-	 * 处理url
-	 * 
-	 * url为null返回null，url为空串或以http://或https://开头，则加上http://，其他情况返回原参数。
-	 * 
-	 * @param url
-	 * @return
-	 */
-	public static String handelUrl(String url) {
-		if (url == null) {
-			return null;
-		}
-		url = url.trim();
-		if (url.equals("") || url.startsWith("http://") || url.startsWith("https://")) {
-			return url;
-		} else {
-			return "http://" + url.trim();
-		}
-	}
-
-	public static boolean isLike(String str, String regEx) {
-		Pattern p = Pattern.compile(regEx, Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
-		Matcher m = p.matcher(str);
-		boolean result = m.find();
-		return result;
-	}
-
-	/**
-	 * 去除文字中Html标签,为手机服务
-	 * 
-	 * @param text
-	 *            文本
-	 * @return 去除掉
-	 */
-	public static String removeHtml(String text) {
-		if (isNULL(text)) {
-			return "";
-		}
-		return text.replaceAll("<[a-zA-Z]+[1-9]?[^><]*>", "").replaceAll("</[a-zA-Z]+[1-9]?>", "")
-				.replaceAll("&nbsp;", "").replaceAll("\r", "").replaceAll("\n", "");
-	}
-
-	/**
-	 * 将NULL转为空字符串
-	 * 
-	 * @param property
-	 * @return
-	 */
-	public static String convertNullToBlankStr(String property) {
-		if (isNULL(property)) {
-			return "";
-		} else {
-			return property;
-		}
-	}
-
-	public static String join(String join, Object[] objects) {
-		StringBuffer sb = new StringBuffer();
-		for (int i = 0; i < objects.length; i++) {
-			if (i == (objects.length - 1)) {
-				sb.append(objects[i]);
-			} else {
-				sb.append(objects[i]).append(join);
+	public static String getStrFromInputStream(InputStream in) {
+		try {
+			BufferedReader bf = new BufferedReader(new InputStreamReader(in, "UTF-8"));
+			StringBuffer buffer = new StringBuffer();
+			String line = "";
+			while ((line = bf.readLine()) != null) {
+				buffer.append(line);
 			}
+			return buffer.toString();
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
-
-		return new String(sb);
+		return null;
 	}
-	
+
 	public static void main(String[] args) {
 		System.out.println(isAbc123_("123qwe_="));
 	}

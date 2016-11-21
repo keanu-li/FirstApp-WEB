@@ -1,0 +1,21 @@
+#error_message {
+    color: red;
+}
+
+.topic-detail-title {
+    margin-top: 0;
+    font-weight: 500;
+}
+
+.gray {
+    color: #999;
+}
+
+.avatar-lg {
+    border-radius: 4px;
+    max-width: 64px;
+}
+
+.divide {
+    border-top: 1px solid #f5f5f5;
+}

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import me.firstapp.common.exception.ServiceException;
 import me.firstapp.common.exception.StatusHouse;
-import me.firstapp.common.utils.StrUtils;
+import me.firstapp.common.repository.Page;
 import me.firstapp.module.member.Member;
 import me.firstapp.module.section.Section;
 import me.firstapp.module.topic.Topic;
@@ -28,20 +28,7 @@ public class TopicServiceImpl implements TopicService {
 	@Autowired
 	private SectionRepository sectionRepository;
 
-	public Topic addTopic(Integer memberId, Integer sectionId, String title, String content) {
-		if (memberId == null) {
-			throw new ServiceException(StatusHouse.COMMON_STATUS_PARAM_REQUIRED_ERROR, "用户id");
-		}
-		if (sectionId == null) {
-			throw new ServiceException(StatusHouse.COMMON_STATUS_PARAM_REQUIRED_ERROR, "板块id");
-		}
-		if (StrUtils.isNULL(title)) {
-			throw new ServiceException(StatusHouse.COMMON_STATUS_PARAM_REQUIRED_ERROR, "title");
-		}
-		if (StrUtils.isNULL(content)) {
-			throw new ServiceException(StatusHouse.COMMON_STATUS_PARAM_REQUIRED_ERROR, "content");
-		}
-
+	public Topic addTopic(Long memberId, Long sectionId, String title, String content) {
 		Member member = (Member) memberRepository.getById(memberId);
 		if (member == null) {
 			throw new ServiceException(StatusHouse.MEMBER_NOT_FOUND);
@@ -59,6 +46,24 @@ public class TopicServiceImpl implements TopicService {
 		topic.setCreateTime(Calendar.getInstance().getTime());
 		topicRepository.save(topic);
 		return topic;
+	}
+
+	public Page<Topic> findTopicsPage(Integer pageNo, Integer pageSize, Long sectionId) {
+		if (pageNo == null) {
+			pageNo = 1;
+		}
+		if (pageSize == null) {
+			pageSize = 20;
+		}
+		return topicRepository.findTopicsPage(pageNo, pageSize, sectionId);
+	}
+
+	public Topic findTopicById(Long topicId) {
+		return (Topic) topicRepository.getById(topicId);
+	}
+
+	public Topic findTopicByTitle(String title) {
+		return topicRepository.findTopicByTitle(title);
 	}
 
 }

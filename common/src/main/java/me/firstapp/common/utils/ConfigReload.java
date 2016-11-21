@@ -3,6 +3,13 @@ package me.firstapp.common.utils;
 import java.io.InputStream;
 import java.util.Properties;
 
+/**
+ * 配置文件加载工具类
+ * 
+ * @Created by keanu.
+ * @Copyright (c) 2016, All Rights Reserved.
+ * @website http://firstapp.me
+ */
 public class ConfigReload {
 
 	private String CONFIG_FILENAME = "";

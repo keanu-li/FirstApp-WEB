@@ -27,16 +27,16 @@ public class Topic extends BaseEntity {
 
 	private static final long serialVersionUID = 8577491675659337535L;
 	// 与版块关联
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "SECTION_ID", nullable = false, referencedColumnName = "ID")
 	private Section section;
 
 	// 标题
-	@Column(name = "TITLE", length = 250, unique = true, nullable = false)
+	@Column(name = "TITLE", length = 240, unique = true, nullable = false)
 	private String title;
 
 	// 内容
-	@Column(name = "CONTENT", columnDefinition = "text", nullable = false)
+	@Column(name = "CONTENT", columnDefinition = "text", nullable = true)
 	private String content;
 
 	// 发布时间
@@ -56,7 +56,7 @@ public class Topic extends BaseEntity {
 	private Long viewCounts = 0L;
 
 	// 与用户的关联
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "MEMBER_ID", nullable = false, referencedColumnName = "ID")
 	private Member member;
 

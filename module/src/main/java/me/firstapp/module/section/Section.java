@@ -25,7 +25,7 @@ public class Section extends BaseEntity {
 	// 板块描述
 	@Column(name = "DESCRIPTION", length = 200, nullable = true)
 	private String description;
-
+	
 	public String getName() {
 		return name;
 	}
@@ -41,5 +41,4 @@ public class Section extends BaseEntity {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-
 }

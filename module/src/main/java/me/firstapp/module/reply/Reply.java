@@ -34,12 +34,12 @@ public class Reply extends BaseEntity {
 	private Date createTime;
 
 	// 关联的话题
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "TOPIC_ID", referencedColumnName = "ID", nullable = false)
 	private Topic topic;
 
 	// 关联的用户
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "MEMBER_ID", referencedColumnName = "ID", nullable = false)
 	private Member member;
 
