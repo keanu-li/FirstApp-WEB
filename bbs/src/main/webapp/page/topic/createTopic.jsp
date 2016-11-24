@@ -25,7 +25,7 @@
 							<a href="/">主页</a> / 发布话题
 						</div>
 						<div class="panel-body">
-							<form method="post" action="${ctx}/topic/addTopic.do" id="topicForm">
+							<form method="post" action="${ctx}/topic/addTopic" id="topicForm">
 								<input type="hidden" name="" value="" />
 								<div class="form-group">
 									<label for="title">标题</label>

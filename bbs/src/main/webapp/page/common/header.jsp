@@ -10,7 +10,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" style="color:#fff;" href="/">FirstApp.Me</a>
+      <a class="navbar-brand" style="color:#fff;" href="http://firstapp.me">FirstApp.Me</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse header-navbar">
         <form class="navbar-form navbar-left" role="search" action="/search" method="get">
@@ -28,46 +28,28 @@
         <li>
           <a href="/about">关于</a>
         </li>
-        <li class="hidden-md hidden-lg">
-            <a href="/topic/create">发布话题</a>
-          </li>
-          <li>
+        <li><a href="${ctx}/login">登录</a></li>
+        <li><a href="${ctx}/register">注册</a></li>
+<%--         <li>
             <a href="/notification/list">通知 <span class="badge" id="badge"></span></a>
-            <script>
-              setInterval(function () {
-                $.ajax({
-                  url: "/api/notification/notRead",
-                  async: true,
-                  cache: false,
-                  type: "get",
-                  dataType: "json",
-                  success: function (data) {
-                    if(data.code == 200 && data.detail > 0) {
-                      $("#badge").text(data.detail);
-                    }
-                  }
-                })
-              }, 120000)
-            </script>
-          </li>
-          <li >
+        </li>
+        <li >
             <a href="/user/${_principal}">
-            admin
+            	admin
               <span class="badge" id="badge"></span>
             </a>
-          </li>
-          <li>
-            <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown"
-               data-hover="dropdown">
-              设置
+        </li> --%>
+<!--         <li>
+            <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown">
+              		设置
               <span class="caret"></span>
             </a>
-            <span class="dropdown-arrow"></span>
+         	<span class="dropdown-arrow"></span>
             <ul class="dropdown-menu">
               <li><a href="/user/setting">个人资料</a></li>
               <li><a href="/logout">退出</a></li>
             </ul>
-          </li>
+         </li> -->
       </ul>
     </div>
   </div>

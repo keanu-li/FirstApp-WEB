@@ -8,11 +8,15 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<link rel="stylesheet" href="${ctx}/static/css/bootstrap.css" />
+<link rel="stylesheet" href="${ctx}/static/libs/bootstrap-3.3.0/css/bootstrap.css" />
 <link rel="stylesheet" href="${ctx}/static/css/github.css">
 <link rel="stylesheet" href="${ctx}/page/common/css/firstapp.css">
 
-<script src="../static/js/jquery-3.1.1.min.js"></script>
+<script src="${ctx}/static/js/jquery-3.1.1.min.js"></script>
 <script type="text/javascript" src="${ctx}/page/common/js/firstapp.js"></script>
-<script src="//cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-<script src="//cdn.bootcss.com/layer/2.4/layer.min.js"></script>
+<script src="${ctx}/static/libs/bootstrap-3.3.0/js/bootstrap.min.js"></script>
+<script src="${ctx}/static/libs/layer-v3.0.1/layer.js"></script>
+
+<script>
+	var ctx = "${ctx}";
+</script>

@@ -25,7 +25,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import me.firstapp.common.exception.StatusHouse;
 import me.firstapp.common.json.SingleObject;
-import me.firstapp.common.utils.HttpUtils;
 import me.firstapp.common.utils.JsonWriter;
 import me.firstapp.common.utils.MD5Utils;
 import me.firstapp.common.utils.ResponseUtils;
@@ -40,7 +39,7 @@ public class ApiSecuritySignFilter implements Filter {
 	static Logger logger = LoggerFactory.getLogger(ApiSecuritySignFilter.class);
 
 	// 是否执行接口签名验证
-	private static boolean API_CLIENT_AUTH = false;
+	private static boolean API_CLIENT_AUTH = true;
 
 	@Autowired
 	private ApiClientService apiClientService;
@@ -127,24 +126,18 @@ public class ApiSecuritySignFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 		request.setCharacterEncoding("UTF-8");
+		HttpServletRequest req = (HttpServletRequest) request;
+		HttpServletResponse res = (HttpServletResponse) response;
+
 		// 先判断是否要使用api授权模式
-		String reqBody = HttpUtils.getBodyString(request);
 		if (!API_CLIENT_AUTH) {
 			logger.info("根据配置不执行接口调用的签名认证");
-			request.setAttribute("bodyStr", reqBody);
 			chain.doFilter(request, response);
 		} else {
 			// 从request中获取apiKey和sign模式
 			String apiKey = request.getParameter("apiKey");
 			String sign = request.getParameter("sign");
 			String timestamp = request.getParameter("timestamp");
-
-			HttpServletRequest req = (HttpServletRequest) request;
-			HttpServletResponse res = (HttpServletResponse) response;
-//			String uri = req.getRequestURI();
-//			ServletInputStream inputStreem = req.getInputStream();
-//			String str = StrUtils.getStrFromInputStream(inputStreem);
-//			System.out.println(str);
 			SingleObject<Object> resultJsonObject = new SingleObject<Object>();
 			// 判断apiKey,sign,timestamp三个参数是否齐全
 			if (apiKey == null || sign == null || timestamp == null) {
@@ -166,7 +159,6 @@ public class ApiSecuritySignFilter implements Filter {
 					}
 					String content = getParamString(req) + "&apiSecret=" + apiClient.getApiSecret();
 					if (MD5Utils.verify(content, sign)) {
-						request.setAttribute("bodyStr", reqBody);
 						chain.doFilter(request, response);
 					} else {
 						logger.error("签名验证未通过：内容=>" + content + ", 签名=>" + sign);

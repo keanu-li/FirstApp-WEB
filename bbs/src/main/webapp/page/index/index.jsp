@@ -19,7 +19,7 @@
 						<div class="panel-heading">
 							<ul class="nav nav-pills">
 								<c:forEach items="${sections}" var="section">
-									<li><a href="${ctx}/index/index.htm?sectionId=${section.id}">${section.name}</a></li>
+									<li><a href="${ctx}?sectionId=${section.id}">${section.name}</a></li>
 								</c:forEach>
 							</ul>
 						</div>
@@ -31,7 +31,7 @@
 								</div>
 								<div class="media-body">
 									<div class="title">
-										<a href="${ctx}/topic/showTopicDetail.htm?topicId=${apiJsonTopic.id}">${apiJsonTopic.title}</a>
+										<a href="${ctx}/topic/${apiJsonTopic.id}">${apiJsonTopic.title}</a>
 									</div>
 									<p class="gray">
 										<span class="label label-primary">精华</span>
@@ -48,11 +48,11 @@
 							</div>
 							</c:forEach>
 							<div class="divide mar-top-5"></div>
-							<div class="divide mar-top-5"></div>
-							<ul class="pagination pagination-sm">
+							<c:if test="${topicPage.totalCount>topicPage.pageSize}">
+							 <ul class="pagination pagination-sm">
 								<c:if test="${topicPage.firstPage == false}">
-									<li><a href="${ctx}/index/index.htm?pageNo=1&pageSize=${topicPage.pageSize}&sectionId=${sectionId}">&lt;&lt;</a></li>
-									<li><a href="${ctx}/index/index.htm?pageNo=${topicPage.prePage}&pageSize=${topicPage.pageSize}&sectionId=${sectionId}">&lt;</a></li>
+									<li><a href="${ctx}?pageNo=1&pageSize=${topicPage.pageSize}&sectionId=${sectionId}">&lt;&lt;</a></li>
+									<li><a href="${ctx}?pageNo=${topicPage.prePage}&pageSize=${topicPage.pageSize}&sectionId=${sectionId}">&lt;</a></li>
 								</c:if>
 								<c:forEach items="${pages}" var="page">
 									<c:choose>
@@ -60,15 +60,16 @@
 											<li class="active"><a class="disabled">${page}</a></li>
 										</c:when>
 										<c:otherwise>
-											<li><a href="${ctx}/index/index.htm?pageNo=${page}&pageSize=${topicPage.pageSize}&sectionId=${sectionId}">${page}</a></li>
+											<li><a href="${ctx}?pageNo=${page}&pageSize=${topicPage.pageSize}&sectionId=${sectionId}">${page}</a></li>
 										</c:otherwise>
 									</c:choose>
 								</c:forEach>
 								<c:if test="${topicPage.lastPage == false}">
-									<li><a href="${ctx}/index/index.htm?pageNo=${topicPage.nextPage}&pageSize=${topicPage.pageSize}&sectionId=${sectionId}">&gt;</a></li>
-									<li><a href="${ctx}/index/index.htm?pageNo=${topicPage.totalPage}&pageSize=${topicPage.pageSize}&sectionId=${sectionId}">&gt;&gt;</a></li>
+									<li><a href="${ctx}?pageNo=${topicPage.nextPage}&pageSize=${topicPage.pageSize}&sectionId=${sectionId}">&gt;</a></li>
+									<li><a href="${ctx}?pageNo=${topicPage.totalPage}&pageSize=${topicPage.pageSize}&sectionId=${sectionId}">&gt;&gt;</a></li>
 								</c:if>
-							</ul>
+							 </ul>
+							</c:if>
 						</div>
 					</div>
 				</div>

@@ -10,34 +10,17 @@ import java.util.regex.Pattern;
 
 /**
  * 字符串的帮助类，提供静态方法，不可以实例化。
+ * 
+ * @Created by keanu.
+ * @Copyright (c) 2016, All Rights Reserved.
+ * @website http://firstapp.me
  */
 public class StrUtils {
+
 	/**
 	 * 禁止实例化
 	 */
 	private StrUtils() {
-	}
-
-	public static String formatDouble2(Double d) {
-		if (d == null) {
-			return "0.00";
-		}
-		return String.format("%.2f", d);
-	}
-
-	public static String formatLong(Long l) {
-		if (l == null) {
-			return "0";
-		}
-		return l.toString();
-
-	}
-
-	public static String formatDouble0(Double d) {
-		if (d == null) {
-			return "0";
-		}
-		return String.format("%.0f", d);
 	}
 
 	/**
@@ -45,14 +28,13 @@ public class StrUtils {
 	 * 
 	 * @param text
 	 *            字符串
-	 * @return
 	 */
 	public static boolean isMail(String text) {
 		// 若为空，返回false
 		if (isNULL(text)) {
 			return false;
 		}
-		Pattern p = Pattern.compile("\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*");
+		Pattern p = Pattern.compile("^([a-z0-9A-Z]+[-|_|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$");
 		Matcher m = p.matcher(text);
 		return m.matches();
 	}
@@ -76,7 +58,6 @@ public class StrUtils {
 	 * 
 	 * @param text
 	 *            字符串
-	 * @return
 	 */
 	public static boolean isURL(String text) {
 		// 若为空，返回false
@@ -97,7 +78,6 @@ public class StrUtils {
 	 * 判断是否为手机号
 	 * 
 	 * @param mobile
-	 * @return
 	 */
 	public static boolean isMobileNO(String mobile) {
 		Pattern p = Pattern.compile("^((13[0-9])|(14[0-9])|(15[0-9])|(16[0-9])|(17[0-9])|(18[0-9]))\\d{8}$");
@@ -110,7 +90,6 @@ public class StrUtils {
 	 * 
 	 * @param text
 	 *            字符串
-	 * @return
 	 */
 	public static boolean isNULL(String text) {
 		if (text == null || text.trim().equals("") || "null".equalsIgnoreCase(text)) {
@@ -124,30 +103,30 @@ public class StrUtils {
 	 * 
 	 * @param text
 	 *            字符串
-	 * @return
 	 */
 	public static boolean isNotNULL(String text) {
 		return !isNULL(text);
 	}
 
+	/**
+	 * 输入流转换字符串
+	 * 
+	 * @param in
+	 */
 	public static String getStrFromInputStream(InputStream in) {
+		StringBuffer buffer = new StringBuffer();
 		try {
 			BufferedReader bf = new BufferedReader(new InputStreamReader(in, "UTF-8"));
-			StringBuffer buffer = new StringBuffer();
 			String line = "";
 			while ((line = bf.readLine()) != null) {
 				buffer.append(line);
 			}
-			return buffer.toString();
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return null;
+		return buffer.toString();
 	}
 
-	public static void main(String[] args) {
-		System.out.println(isAbc123_("123qwe_="));
-	}
 }

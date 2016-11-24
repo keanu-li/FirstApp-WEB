@@ -17,12 +17,34 @@ public class MemberRepositoryImpl extends EntityRepositoryImpl<Member> implement
 		return Member.class;
 	}
 
-	public Member getMemberByName(String name) {
+	public Member findMemberByName(String name) {
 		Map<String, Object> parameters = new HashMap<String, Object>();
 		StringBuilder sql = new StringBuilder(" FROM Member bean WHERE 1=1 ");
 
 		sql.append(" AND bean.name=:name ");
 		parameters.put("name", name);
+
+		List<Member> results = super.query(Member.class, sql.toString(), parameters);
+		return results.isEmpty() ? null : results.get(0);
+	}
+
+	public Member findmemberByEmail(String email) {
+		Map<String, Object> parameters = new HashMap<String, Object>();
+		StringBuilder sql = new StringBuilder(" FROM Member bean WHERE 1=1 ");
+
+		sql.append(" AND bean.email=:email ");
+		parameters.put("email", email);
+
+		List<Member> results = super.query(Member.class, sql.toString(), parameters);
+		return results.isEmpty() ? null : results.get(0);
+	}
+
+	public Member findmemberByMobile(String mobile) {
+		Map<String, Object> parameters = new HashMap<String, Object>();
+		StringBuilder sql = new StringBuilder(" FROM Member bean WHERE 1=1 ");
+
+		sql.append(" AND bean.mobile=:mobile ");
+		parameters.put("mobile", mobile);
 
 		List<Member> results = super.query(Member.class, sql.toString(), parameters);
 		return results.isEmpty() ? null : results.get(0);

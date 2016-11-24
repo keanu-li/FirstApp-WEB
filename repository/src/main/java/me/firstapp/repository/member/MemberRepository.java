@@ -5,5 +5,9 @@ import me.firstapp.repository.base.EntityRepository;
 
 public interface MemberRepository extends EntityRepository<Member> {
 
-	Member getMemberByName(String name);
+	Member findMemberByName(String name);
+
+	Member findmemberByEmail(String email);
+
+	Member findmemberByMobile(String mobile);
 }

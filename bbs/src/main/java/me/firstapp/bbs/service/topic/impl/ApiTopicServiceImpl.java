@@ -2,15 +2,21 @@ package me.firstapp.bbs.service.topic.impl;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
@@ -44,30 +50,28 @@ public class ApiTopicServiceImpl extends ApiBaseServiceImpl implements ApiTopicS
 		StringBuilder url = new StringBuilder(apiUrl);
 		url.append("/topic/addTopic.do");
 
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("title", title);
+		params.put("content", content);
+
 		url.append("?apiKey=").append(apiKey);
 		url.append("&timestamp=").append(calendar.getTimeInMillis());
 		url.append("&memberId=").append(memberId);
 		url.append("&sectionId=").append(sectionId);
-		url.append("&title=").append(title);
-		url.append("&content=").append(content);
 
 		ShaSign shaSign = ShaSign.getSign(apiKey, apiSecret, calendar.getTime());
 		shaSign.addParam("memberId", memberId);
 		shaSign.addParam("sectionId", sectionId);
-		shaSign.addParam("title", title);
-		shaSign.addParam("content", StrUtils.isNULL(content) ? "" : content);
+
 		url.append("&sign=").append(shaSign.signParams());
-		
-//		Map<String, String> params = new HashMap<String, String>();
-//		params.put("content", content);
-//		HttpHeaders headers = new HttpHeaders();
-//		headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
-//		headers.add("content", content);
-//		HttpEntity<String> formEntity = new HttpEntity<String>(null, headers);
+
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.valueOf("application/json; charset=UTF-8"));
+		HttpEntity<String> formEntity = new HttpEntity<String>(JSON.toJSONString(params), headers);
 
 		try {
 			logger.info("开始调用API话题新增接口");
-			ResponseEntity<String> responseEntity = restTemplate.exchange(url.toString(), HttpMethod.POST, null,
+			ResponseEntity<String> responseEntity = restTemplate.exchange(url.toString(), HttpMethod.POST, formEntity,
 					String.class);
 			logger.info("结束调用API话题新增接口，返回结果--》" + responseEntity.getBody());
 
@@ -166,7 +170,8 @@ public class ApiTopicServiceImpl extends ApiBaseServiceImpl implements ApiTopicS
 
 			JSONObject resultJson = JSONObject.parseObject(responseEntity.getBody());
 			if (StatusHouse.COMMON_STATUS_OK.getCode().equals(resultJson.getString("code"))) {
-				return JSONObject.toJavaObject(resultJson.getJSONObject("object"), ApiJsonTopic.class);
+				ApiJsonTopic topic = JSONObject.toJavaObject(resultJson.getJSONObject("object"), ApiJsonTopic.class);
+				return topic;
 			} else {
 				throw new ServiceException(resultJson.getString("code"), resultJson.getString("msg"));
 			}

@@ -5,19 +5,13 @@
 <head>
 <%@ include file="../common/common.jsp"%>
 <link rel="stylesheet" href="${ctx}/static/css/jquery.atwho.min.css" />
-<script type="text/javascript"
-	src="${ctx}/static/js/jquery.atwho.min.js"></script>
-<script type="text/javascript" src="${ctx}/static/js/lodash.min.js"></script>
 <link rel="stylesheet" href="${ctx}/static/libs/editor/editor.css" />
 <link rel="stylesheet" href="${ctx}/page/topic/css/topicDetail.css" />
-<style>
-.CodeMirror {
-	height: 150px;
-}
-</style>
+
+<script type="text/javascript" src="${ctx}/static/js/jquery.atwho.min.js"></script>
+<script type="text/javascript" src="${ctx}/static/js/lodash.min.js"></script>
 <script type="text/javascript" src="${ctx}/static/js/highlight.min.js"></script>
-<script type="text/javascript"
-	src="${ctx}/static/libs/webuploader/webuploader.withoutimage.js"></script>
+<script type="text/javascript" src="${ctx}/static/libs/webuploader/webuploader.withoutimage.js"></script>
 <script type="text/javascript" src="${ctx}/static/libs/markdownit.js"></script>
 <script type="text/javascript" src="${ctx}/static/libs/editor/editor.js"></script>
 <script type="text/javascript" src="${ctx}/static/libs/editor/ext.js"></script>
@@ -65,7 +59,7 @@
 						</div>
 						<div class="divide"></div>
 						<div class="panel-body topic-detail-content">
-       						${topic.content}
+       						${topic.markedownToHtml(topic.content)}
         				</div>
         				<div class="panel-footer">
         					<a href="javascript:window.open('http://service.weibo.com/share/share.php?url=#?r=&title=', '_blank', 'width=550,height=370'); recordOutboundLink(this, 'Share', 'weibo.com');">分享微博</a>&nbsp;
@@ -104,50 +98,8 @@
 		<%@ include file="../common/footer.jsp"%>
 	</div>
 	<script type="text/javascript">
-		$('pre code').each(function(i, block) {
-			hljs.highlightBlock(block);
-		});
-
-		var editor = new Editor({
-			element : $("#content")[0],
-			status : []
-		});
+		var editor = new Editor({element: $("#content")[0], status: []});
 		editor.render();
-
-		var $input = $(editor.codemirror.display.input);
-		$input.keydown(function(event) {
-			if (event.keyCode === 13 && (event.ctrlKey || event.metaKey)) {
-				event.preventDefault();
-				if (editor.codemirror.getValue().length == 0) {
-					$("#error_message").html("回复内容不能为空");
-				} else {
-					$("#replyForm").submit();
-				}
-			}
-		});
-
-		// at.js 配置
-		var codeMirrorGoLineUp = CodeMirror.commands.goLineUp;
-		var codeMirrorGoLineDown = CodeMirror.commands.goLineDown;
-		var codeMirrorNewlineAndIndent = CodeMirror.commands.newlineAndIndent;
-		var data = [];
-		<#list replies as reply>
-		data.push('${reply.user.username}');
-		</#list>
-		data = _.unique(data);
-		$input.atwho({
-			at : "@",
-			data : data
-		}).on('shown.atwho', function() {
-			CodeMirror.commands.goLineUp = _.noop;
-			CodeMirror.commands.goLineDown = _.noop;
-			CodeMirror.commands.newlineAndIndent = _.noop;
-		}).on('hidden.atwho', function() {
-			CodeMirror.commands.goLineUp = codeMirrorGoLineUp;
-			CodeMirror.commands.goLineDown = codeMirrorGoLineDown;
-			CodeMirror.commands.newlineAndIndent = codeMirrorNewlineAndIndent;
-		});
-		// END at.js 配置
 	</script>
 </body>
 </html>

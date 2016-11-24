@@ -19,3 +19,7 @@
 .divide {
     border-top: 1px solid #f5f5f5;
 }
+
+.CodeMirror {
+	height: 150px;
+}

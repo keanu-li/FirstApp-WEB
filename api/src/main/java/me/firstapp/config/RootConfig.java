@@ -4,10 +4,18 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 import org.hibernate.SessionFactory;
+import org.springframework.cache.CacheManager;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
+import org.springframework.data.redis.cache.RedisCacheManager;
+import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.serializer.JdkSerializationRedisSerializer;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
@@ -16,8 +24,10 @@ import org.springframework.transaction.support.TransactionTemplate;
 import com.alibaba.druid.pool.DruidDataSource;
 
 import me.firstapp.security.ApiSecuritySignFilter;
+import redis.clients.jedis.JedisPoolConfig;
 
 @Configuration
+@EnableCaching
 @ImportResource("classpath:transaction.xml")
 @ComponentScan(basePackages = { "me.firstapp.module", "me.firstapp.repository", "me.firstapp.service" })
 public class RootConfig {
@@ -94,8 +104,71 @@ public class RootConfig {
 		return transactionTemplate;
 	}
 
+	// ===============================接口签名验证===============================
 	@Bean
 	public ApiSecuritySignFilter apiSecuritySignFilter() {
 		return new ApiSecuritySignFilter();
+	}
+
+	// ==============================redis缓存配置========================================
+	@Bean
+	public JedisPoolConfig jedisPoolConfig() {
+		JedisPoolConfig jedisPoolConfig = new JedisPoolConfig();
+		jedisPoolConfig.setMaxIdle(1);
+		jedisPoolConfig.setMaxTotal(5);
+		jedisPoolConfig.setBlockWhenExhausted(true);
+		jedisPoolConfig.setMaxWaitMillis(30000);
+		jedisPoolConfig.setTestOnBorrow(true);
+		return jedisPoolConfig;
+	}
+
+	// redis连接工厂
+	@Bean
+	public JedisConnectionFactory redisCollectionFactory(JedisPoolConfig jedisPoolConfig) {
+		JedisConnectionFactory jedisConnectionFactory = new JedisConnectionFactory();
+		jedisConnectionFactory.setHostName("127.0.1.1");
+		jedisConnectionFactory.setPort(6379);
+		jedisConnectionFactory.setPoolConfig(jedisPoolConfig);
+		jedisConnectionFactory.setUsePool(true);
+		return jedisConnectionFactory;
+	}
+
+	@Bean
+	public StringRedisSerializer stringRedisSerializer() {
+		return new StringRedisSerializer();
+	}
+
+	// @Bean
+	// public JdkSerializationRedisSerializer jdkSerializationRedisSerializer()
+	// {
+	// return new JdkSerializationRedisSerializer();
+	// }
+
+	@Bean
+	public RedisTemplate<String, Object> redisTemplate(JedisConnectionFactory redisCollectionFactory,
+			StringRedisSerializer stringRedisSerializer) {
+		RedisTemplate<String, Object> redisTemplate = new RedisTemplate<String, Object>();
+		redisTemplate.setConnectionFactory(redisCollectionFactory);
+
+		redisTemplate.setKeySerializer(stringRedisSerializer);
+		redisTemplate.setValueSerializer(stringRedisSerializer);
+		redisTemplate.setHashKeySerializer(stringRedisSerializer);
+		redisTemplate.afterPropertiesSet();
+		return redisTemplate;
+	}
+
+	@Bean
+	public StringRedisTemplate stringRedisTemplate(JedisConnectionFactory redisCollectionFactory,
+			StringRedisSerializer stringRedisSerializer) {
+		StringRedisTemplate stringRedisTemplate = new StringRedisTemplate();
+		stringRedisTemplate.setConnectionFactory(redisCollectionFactory);
+		stringRedisTemplate.afterPropertiesSet();
+		return stringRedisTemplate;
+	}
+
+	// redis缓存管理器
+	@Bean
+	public CacheManager cacheManager(RedisTemplate<String, Object> redisTemplate) {
+		return new RedisCacheManager(redisTemplate);
 	}
 }

@@ -22,10 +22,12 @@ public class TopicRepositoryImpl extends EntityRepositoryImpl<Topic> implements 
 	public Page<Topic> findTopicsPage(Integer pageNo, Integer pageSize, Long sectionId) {
 		Map<String, Object> parameters = new HashMap<String, Object>();
 		StringBuilder sql = new StringBuilder(" FROM Topic bean WHERE 1=1 ");
-		
-		sql.append(" AND bean.section.id=:sectionId ");
-		parameters.put("sectionId", sectionId);
-		
+
+		if (sectionId != null) {
+			sql.append(" AND bean.section.id=:sectionId ");
+			parameters.put("sectionId", sectionId);
+		}
+
 		return super.queryForPage(Topic.class, sql.toString(), parameters, pageNo, pageSize);
 	}
 

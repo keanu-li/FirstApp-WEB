@@ -1,10 +1,13 @@
 package me.firstapp.api.topic;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -34,8 +37,8 @@ public class TopicApi {
 
 	@RequestMapping(value = "/addTopic.do", method = RequestMethod.POST)
 	@ApiOperation(value = "创建话题", notes = "创建话题")
-	public void addTopic(Long memberId, Long sectionId, String title, String content, HttpServletRequest request,
-			HttpServletResponse response) {
+	public void addTopic(@RequestBody Map<String, Object> body, Long memberId, Long sectionId,
+			HttpServletRequest request, HttpServletResponse response) {
 		SingleObject<Topic> resultJsonObject = new SingleObject<Topic>();
 		try {
 			if (memberId == null) {
@@ -44,10 +47,11 @@ public class TopicApi {
 			if (sectionId == null) {
 				throw new ServiceException(StatusHouse.COMMON_STATUS_PARAM_REQUIRED_ERROR, "板块id");
 			}
+			String title = (String) body.get("title");
 			if (StrUtils.isNULL(title)) {
 				throw new ServiceException(StatusHouse.COMMON_STATUS_PARAM_REQUIRED_ERROR, "title");
 			}
-
+			String content = (String) body.get("content");
 			Topic topic = topicService.addTopic(memberId, sectionId, title, content);
 			resultJsonObject.setObject(topic);
 			resultJsonObject.setStatusObject(StatusHouse.COMMON_STATUS_OK);
@@ -61,6 +65,7 @@ public class TopicApi {
 	}
 
 	@RequestMapping(value = "/findTopics.do", method = RequestMethod.GET)
+	@ApiOperation(value = "分页查询话题", notes = "分页查询话题")
 	public void findTopics(@RequestParam(value = "pageNo", required = true, defaultValue = "1") Integer pageNo,
 			@RequestParam(value = "pageSize", required = true, defaultValue = "20") Integer pageSize,
 			@RequestParam(value = "sectionId", required = true, defaultValue = "1") Long sectionId,
@@ -85,6 +90,7 @@ public class TopicApi {
 	}
 
 	@RequestMapping(value = "/findTopicDetail.do", method = RequestMethod.GET)
+	@ApiOperation(value = "查询话题详情", notes = "查询话题详情")
 	public void findTopicDetail(Long topicId, HttpServletRequest request, HttpServletResponse response) {
 		SingleObject<Topic> resultJsonObject = new SingleObject<Topic>();
 		try {
