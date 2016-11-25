@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -34,7 +35,8 @@ public class StrUtils {
 		if (isNULL(text)) {
 			return false;
 		}
-		Pattern p = Pattern.compile("^([a-z0-9A-Z]+[-|_|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$");
+		Pattern p = Pattern
+				.compile("^([a-z0-9A-Z]+[-|_|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$");
 		Matcher m = p.matcher(text);
 		return m.matches();
 	}
@@ -127,6 +129,11 @@ public class StrUtils {
 			e.printStackTrace();
 		}
 		return buffer.toString();
+	}
+
+	public static String getLoginToken() {
+		String uuidString = UUID.randomUUID().toString().replaceAll("-", "");
+		return uuidString.toUpperCase();
 	}
 
 }

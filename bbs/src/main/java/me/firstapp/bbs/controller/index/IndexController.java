@@ -72,6 +72,9 @@ public class IndexController extends BaseController {
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public ModelAndView login(HttpServletRequest request, HttpServletResponse response, ModelMap modelMap) {
+		//String loginToken = UUIDUtils.getLoginToken();
+		//request.getSession().setAttribute("loginToken", loginToken);
+		//cache.put(MEMBER_CACHE_KEY_ + loginToken, "memberId", result.getObject().getId(), CacheLifeTime.ONE_WEEK);
 		return new ModelAndView("auth/login", modelMap);
 	}
 

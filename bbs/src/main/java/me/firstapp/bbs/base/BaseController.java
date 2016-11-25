@@ -55,5 +55,69 @@ public class BaseController implements HandlerExceptionResolver {
 		member.setId(1L);
 		return member;
 	}
+	
+	
+//	/**
+//	 * 获取登录用户的MemberId
+//	 * 
+//	 * @param request
+//	 * @param response
+//	 * @param modelMap
+//	 * @return
+//	 */
+//	protected String getCurrentLoginToken(HttpServletRequest request, HttpServletResponse response) {
+//		String loginToken = (String) request.getSession().getAttribute("loginToken");
+//		return loginToken;
+//	}
+//
+//	/**
+//	 * 获取登录用户的openId
+//	 * 
+//	 * @param request
+//	 * @param response
+//	 * @param modelMap
+//	 * @return
+//	 */
+//	protected String getCurrentOpenId(HttpServletRequest request, HttpServletResponse response) {
+//		String openId = (String) request.getSession().getAttribute("openId");
+//		return openId;
+//	}
+//
+//	/**
+//	 * 获取登录用户的MemberId
+//	 * 
+//	 * @param request
+//	 * @param response
+//	 * @param modelMap
+//	 * @return
+//	 */
+//	protected String getCurrentLoginMemberId(HttpServletRequest request, HttpServletResponse response) {
+//		String loginToken = (String) request.getSession().getAttribute("loginToken");
+//
+//		if (StrUtils.isNotNULL(loginToken)) {
+//			String memberId = (String) cache.get(MEMBER_CACHE_KEY_ + loginToken);
+//			if (StrUtils.isNotNULL(memberId)) {
+//				return memberId;
+//			}
+//		}
+//		return null;
+//	}
+//
+//	/**
+//	 * 获取登录用户的MemberId
+//	 * 
+//	 * @param request
+//	 * @param response
+//	 * @param modelMap
+//	 * @return
+//	 * @throws WapLoginException
+//	 */
+//	protected String loadCurrentLoginMemberId(HttpServletRequest request, HttpServletResponse response) throws WapLoginException {
+//		String memberId = getCurrentLoginMemberId(request, response);
+//		if (StrUtils.isNULL(memberId)) {
+//			throw new WapLoginException();
+//		}
+//		return memberId;
+//	}
 
 }
