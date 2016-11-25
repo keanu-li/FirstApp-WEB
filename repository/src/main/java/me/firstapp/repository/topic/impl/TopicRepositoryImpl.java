@@ -6,9 +6,9 @@ import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
-import me.firstapp.common.repository.Page;
+import me.firstapp.common.repository.impl.EntityRepositoryImpl;
+import me.firstapp.common.utils.Page;
 import me.firstapp.module.topic.Topic;
-import me.firstapp.repository.base.EntityRepositoryImpl;
 import me.firstapp.repository.topic.TopicRepository;
 
 @Repository

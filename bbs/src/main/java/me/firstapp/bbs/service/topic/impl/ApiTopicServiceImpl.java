@@ -27,7 +27,7 @@ import me.firstapp.bbs.service.topic.ApiTopicService;
 import me.firstapp.common.exception.ServiceException;
 import me.firstapp.common.exception.StatusHouse;
 import me.firstapp.common.exception.StatusObject;
-import me.firstapp.common.security.ShaSign;
+import me.firstapp.common.utils.ShaSign;
 import me.firstapp.common.utils.StrUtils;
 
 @Service

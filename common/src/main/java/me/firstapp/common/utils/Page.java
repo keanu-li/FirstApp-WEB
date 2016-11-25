@@ -1,4 +1,4 @@
-package me.firstapp.common.repository;
+package me.firstapp.common.utils;
 
 import java.util.Collection;
 import java.util.Collections;

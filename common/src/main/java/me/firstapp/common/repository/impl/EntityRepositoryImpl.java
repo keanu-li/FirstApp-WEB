@@ -1,4 +1,4 @@
-package me.firstapp.repository.base;
+package me.firstapp.common.repository.impl;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -9,8 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.ClassUtils;
 
-import me.firstapp.common.repository.Page;
-import me.firstapp.module.base.BaseEntity;
+import me.firstapp.common.module.BaseEntity;
+import me.firstapp.common.repository.BaseRepository;
+import me.firstapp.common.repository.EntityRepository;
+import me.firstapp.common.utils.Page;
 
 @Repository
 public abstract class EntityRepositoryImpl<T> implements EntityRepository<T> {

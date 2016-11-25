@@ -6,7 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import me.firstapp.module.base.BaseEntity;
+import me.firstapp.common.module.BaseEntity;
 
 /**
  * 用户模型

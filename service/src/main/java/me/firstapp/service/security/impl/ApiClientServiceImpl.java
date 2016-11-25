@@ -1,6 +1,7 @@
 package me.firstapp.service.security.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import me.firstapp.common.exception.ServiceException;
@@ -16,6 +17,7 @@ public class ApiClientServiceImpl implements ApiClientService {
 	@Autowired
 	private ApiClientRepository apiClientRepositoryl;
 
+	@Cacheable(value = "apiClient", key = "#apiKey")
 	public ApiClient findApiClientByKey(String apiKey) {
 		if (StrUtils.isNULL(apiKey)) {
 			throw new ServiceException(StatusHouse.COMMON_STATUS_PARAM_REQUIRED_ERROR, "apiKey");

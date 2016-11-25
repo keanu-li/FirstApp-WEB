@@ -1,4 +1,4 @@
-package me.firstapp.repository.base;
+package me.firstapp.common.repository.impl;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.HibernateCallback;
 import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Repository;
+
+import me.firstapp.common.repository.BaseRepository;
 
 @Repository
 public class BaseRepositoryImpl implements BaseRepository {

@@ -6,8 +6,8 @@ import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
+import me.firstapp.common.repository.impl.EntityRepositoryImpl;
 import me.firstapp.module.member.Member;
-import me.firstapp.repository.base.EntityRepositoryImpl;
 import me.firstapp.repository.member.MemberRepository;
 
 @Repository

@@ -28,6 +28,7 @@ import me.firstapp.common.json.SingleObject;
 import me.firstapp.common.utils.JsonWriter;
 import me.firstapp.common.utils.MD5Utils;
 import me.firstapp.common.utils.ResponseUtils;
+import me.firstapp.common.utils.StrUtils;
 import me.firstapp.module.security.ApiClient;
 import me.firstapp.service.security.ApiClientService;
 
@@ -140,7 +141,7 @@ public class ApiSecuritySignFilter implements Filter {
 			String timestamp = request.getParameter("timestamp");
 			SingleObject<Object> resultJsonObject = new SingleObject<Object>();
 			// 判断apiKey,sign,timestamp三个参数是否齐全
-			if (apiKey == null || sign == null || timestamp == null) {
+			if (StrUtils.isNULL(apiKey) || StrUtils.isNULL(sign) || StrUtils.isNULL(timestamp)) {
 				logger.error(
 						"apiKey或者sign或者timestamp不存在：apiKey=" + apiKey + ", sign=" + sign + ", timestamp=" + timestamp);
 				resultJsonObject.setStatusObject(StatusHouse.ACCOUNT_VERIFY_FAILED);

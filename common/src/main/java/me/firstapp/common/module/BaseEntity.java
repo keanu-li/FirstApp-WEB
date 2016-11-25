@@ -1,4 +1,4 @@
-package me.firstapp.module.base;
+package me.firstapp.common.module;
 
 import java.io.Serializable;
 import java.util.Date;

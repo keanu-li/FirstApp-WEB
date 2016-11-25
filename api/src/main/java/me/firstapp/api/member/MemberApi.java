@@ -4,8 +4,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,6 +14,7 @@ import com.wordnik.swagger.annotations.ApiOperation;
 import me.firstapp.common.exception.ServiceException;
 import me.firstapp.common.exception.StatusHouse;
 import me.firstapp.common.json.SingleObject;
+import me.firstapp.common.service.EmailService;
 import me.firstapp.common.utils.JsonWriter;
 import me.firstapp.common.utils.ResponseUtils;
 import me.firstapp.common.utils.StrUtils;
@@ -31,7 +30,7 @@ public class MemberApi {
 	private MemberService memberService;
 
 	@Autowired
-	private StringRedisTemplate stringRedisTemplate;
+	private EmailService emailService;
 
 	@RequestMapping(value = "register.do", method = RequestMethod.POST)
 	@ApiOperation(value = "用户注册", notes = "用户注册")
@@ -72,9 +71,7 @@ public class MemberApi {
 			if (member != null) {
 				throw new ServiceException(StatusHouse.NAME_IS_EXIST);
 			}
-
-			String _code = stringRedisTemplate.opsForValue().get(email);
-			System.out.println(_code);
+			String _code = emailService.getMAilCode(email);
 			if (StrUtils.isNULL(_code) || !_code.equals(code)) {
 				throw new ServiceException(StatusHouse.VERIFY_CODE_WRONG);
 			}
@@ -101,11 +98,9 @@ public class MemberApi {
 			if (!StrUtils.isMail(email)) {
 				throw new ServiceException(StatusHouse.EMAIL_FORMAT_WRONG);
 			}
-			String code = "1234";
+			String code = emailService.sendMailCode(email);
 			System.out.println("邮件验证码发送成功:" + code);
-			stringRedisTemplate.opsForValue().set(email, code, 1000 * 120);
 			resultJsonObject.setStatusObject(StatusHouse.COMMON_STATUS_OK);
-			// resultJsonObject.setObject(code);
 		} catch (ServiceException e) {
 			resultJsonObject.setStatusObject(e.getStatusObject());
 		} catch (Exception e) {

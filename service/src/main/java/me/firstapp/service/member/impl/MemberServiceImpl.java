@@ -1,5 +1,7 @@
 package me.firstapp.service.member.impl;
 
+import java.util.Calendar;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,6 +38,7 @@ public class MemberServiceImpl implements MemberService {
 		member.setMobile(mobile);
 		member.setSignature(signature);
 		member.setUrl(url);
+		member.setRegisterTime(Calendar.getInstance().getTime());
 		memberRepository.save(member);
 		return member;
 	}

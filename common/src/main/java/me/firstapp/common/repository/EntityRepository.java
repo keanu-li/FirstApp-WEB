@@ -1,10 +1,10 @@
-package me.firstapp.repository.base;
+package me.firstapp.common.repository;
 
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
-import me.firstapp.common.repository.Page;
+import me.firstapp.common.utils.Page;
 
 public interface EntityRepository<T> {
 

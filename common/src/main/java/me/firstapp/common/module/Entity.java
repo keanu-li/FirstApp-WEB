@@ -1,4 +1,4 @@
-package me.firstapp.module.base;
+package me.firstapp.common.module;
 
 public interface Entity<T> {
 	public T getId();

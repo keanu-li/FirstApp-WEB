@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import me.firstapp.common.exception.ServiceException;
 import me.firstapp.common.exception.StatusHouse;
-import me.firstapp.common.repository.Page;
+import me.firstapp.common.utils.Page;
 import me.firstapp.module.member.Member;
 import me.firstapp.module.section.Section;
 import me.firstapp.module.topic.Topic;

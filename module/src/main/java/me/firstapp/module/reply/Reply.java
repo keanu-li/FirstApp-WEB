@@ -9,7 +9,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import me.firstapp.module.base.BaseEntity;
+import me.firstapp.common.module.BaseEntity;
 import me.firstapp.module.member.Member;
 import me.firstapp.module.topic.Topic;
 

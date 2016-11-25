@@ -1,8 +1,8 @@
 package me.firstapp.repository.topic;
 
-import me.firstapp.common.repository.Page;
+import me.firstapp.common.repository.EntityRepository;
+import me.firstapp.common.utils.Page;
 import me.firstapp.module.topic.Topic;
-import me.firstapp.repository.base.EntityRepository;
 
 public interface TopicRepository extends EntityRepository<Topic> {
 	/**

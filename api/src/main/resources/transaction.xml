@@ -21,7 +21,7 @@
 	<!-- 事务切入点 -->
 	<aop:config proxy-target-class="true">
 		<aop:pointcut id="serviceOperation"
-			expression="(execution (* me.firstapp.service.*..*(..)))" />
+			expression="(execution (* me.firstapp.service.*..*(..))) or (execution (* me.firstapp.common.service.*..*(..)))" />
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="serviceOperation" />
 	</aop:config>
 

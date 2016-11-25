@@ -4,7 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import me.firstapp.module.base.BaseEntity;
+import me.firstapp.common.module.BaseEntity;
 
 @Entity
 @Table(name = "SECURITY_API_CLIENT")
@@ -17,11 +17,11 @@ public class ApiClient extends BaseEntity {
 	@Column(name = "API_SECRET", length = 100, nullable = false)
 	private String apiSecret;
 
-	//描述
+	// 描述
 	@Column(name = "DESCRIPTION", length = 240, nullable = true)
 	private String description;
 
-	//类型，0代表web,1代表app
+	// 类型，0代表web,1代表app
 	@Column(name = "SOURCE_TYPE", nullable = false)
 	private Integer sourceType;
 

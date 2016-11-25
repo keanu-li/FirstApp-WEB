@@ -1,6 +1,6 @@
 package me.firstapp.service.topic;
 
-import me.firstapp.common.repository.Page;
+import me.firstapp.common.utils.Page;
 import me.firstapp.module.topic.Topic;
 
 public interface TopicService {

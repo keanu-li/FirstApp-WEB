@@ -1,4 +1,4 @@
-package me.firstapp.repository.base;
+package me.firstapp.common.repository;
 
 import java.io.Serializable;
 import java.util.List;

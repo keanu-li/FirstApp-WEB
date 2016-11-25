@@ -1,4 +1,4 @@
-package me.firstapp.common.security;
+package me.firstapp.common.utils;
 
 import java.util.ArrayList;
 import java.util.Collections;
